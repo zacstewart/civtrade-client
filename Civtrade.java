@@ -17,34 +17,30 @@ import net.minecraftforge.common.MinecraftForge;
 @Mod(modid="Civtrade", name="Civtrade", version="0.0.0")
 @NetworkMod(clientSideRequired=true, serverSideRequired=false)
 public class Civtrade {
+	@Instance("Civtrade")
+	public static Civtrade instance;
 
-        // The instance of your mod that Forge uses.
-        @Instance("Civtrade")
-        public static Civtrade instance;
-        
-        // Says where the client and server 'proxy' code is loaded.
-        @SidedProxy(clientSide="com.zacstewart.civtrade.client.ClientProxy",
-        			serverSide="com.zacstewart.civtrade.CommonProxy") 
-        public static CommonProxy proxy;
-	
-        // TODO: this should be part of a config object
-		public static String server;
-		public static boolean multiplayer;
-		public static boolean debug;
-        
-        @PreInit
-        public void preInit(FMLPreInitializationEvent event) {
-        		// Load configuration here
-        }
-        
-        @Init
-        public void load(FMLInitializationEvent event) {
-                proxy.registerRenderers();
-        }
-        
-        @PostInit
-        public void postInit(FMLPostInitializationEvent event) {
-                // Stub Method
-            proxy.init();
-        }
+	@SidedProxy(clientSide="com.zacstewart.civtrade.client.ClientProxy",
+			serverSide="com.zacstewart.civtrade.CommonProxy") 
+	public static CommonProxy proxy;
+
+	// TODO: this should be part of a config object
+	public static String server;
+	public static boolean multiplayer;
+	public static boolean debug;
+
+	@PreInit
+	public void preInit(FMLPreInitializationEvent event) {
+		// Load configuration here
+	}
+
+	@Init
+	public void load(FMLInitializationEvent event) {
+		proxy.registerRenderers();
+	}
+
+	@PostInit
+	public void postInit(FMLPostInitializationEvent event) {
+		proxy.init();
+	}
 }

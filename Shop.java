@@ -19,7 +19,7 @@ public class Shop {
 	Integer buyPrice = 0, sellPrice = 0;
 	String buyCurrency = "", sellCurrency = "";
 	String seller;
-	
+
 	public Shop(
 			int x, int y, int z,
 			int dimension,
@@ -44,7 +44,7 @@ public class Shop {
 		this.sellCurrency = sellCurrency;
 		this.seller = seller;
 	}
-	
+
 	public void save() {
 		new Thread(new Runnable () {
 			public void run () {
@@ -55,9 +55,9 @@ public class Shop {
 				}
 			}
 		}).start();
-		
+
 	}
-	
+
 	private void writeToServer() throws IOException {
 		URLConnection conn = civtradeShopsURL().openConnection();
 
@@ -70,17 +70,17 @@ public class Shop {
 
 		String line;
 		BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-		
+
 		int statusCode = ((HttpURLConnection) conn).getResponseCode();
 		System.out.println("HTTP Status: " + statusCode);
 
 		while ((line = reader.readLine()) != null) {
-		    System.out.println(line);
+			System.out.println(line);
 		}
 		writer.close();
 		reader.close();
 	}
-	
+
 	private URL civtradeShopsURL() throws MalformedURLException {
 		if (Civtrade.debug ||  Civtrade.server.equals("127.0.0.1:25565")) {
 			return new URL("http://localhost:5000/shops.json");
@@ -88,7 +88,7 @@ public class Shop {
 			return new URL("http://civtrade.herokuapp.com/shops.json");
 		}
 	}
-	
+
 	private String requestParameters() {
 		String[] params = new String[] {
 				"item_name", 		this.item,
@@ -104,7 +104,7 @@ public class Shop {
 				"location_x", 		this.x.toString(),
 				"location_y", 		this.y.toString(),
 				"location_z", 		this.z.toString()};
-		
+
 		String paramString = "";
 		for (int i = 0; i < params.length; i += 2) {
 			if ((!params[i].equals("buy_amount") || this.buyAmount > 0)
@@ -115,7 +115,7 @@ public class Shop {
 		}
 		return paramString;
 	}
-	
+
 	private String getWorld() {
 		String dimension;
 		switch(this.dimension) {
