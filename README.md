@@ -35,13 +35,14 @@ collected.  Just the x, y, z of the shop and the information the sign shows.
 
 ## Searching Shops
 Hit 'I' and enter you query (or no query if you just want to list all shops).
-The >= 101 nearest shops will be listed in order of distance from you.
+The <= 100 nearest shops will be listed in order of distance from you.
 
 Again, none of you personal data, username, or anything else is listed. It uses
 your coords to find the closest shops, but does not collect anything identifying.
 
 # Future Features
 
+* Add waypoints to Rei's minimap from search results
 * Shop inventory information being collected
 
 [1]: http://www.minecraftforum.net/topic/939149-launcher-magic-launcher-114-mods-options-profiles-news/
