@@ -10,6 +10,7 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityClientPlayerMP;
 
 public class Shop {
 	Integer x, y, z;
@@ -35,6 +36,32 @@ public class Shop {
 		this.y = y;
 		this.z = z;
 		this.dimension = dimension;
+		this.item = item;
+		this.buyAmount = buyAmount;
+		this.sellAmount = sellAmount;
+		this.buyPrice = buyPrice;
+		this.sellPrice = sellPrice;
+		this.buyCurrency = buyCurrency;
+		this.sellCurrency = sellCurrency;
+		this.seller = seller;
+	}
+	
+	public Shop(
+			int x, int y, int z,
+			String dimension,
+			String item,
+			int buyAmount,
+			int sellAmount,
+			int buyPrice,
+			int sellPrice,
+			String buyCurrency,
+			String sellCurrency,
+			String seller) {
+		int world = this.getDimension(dimension);
+		this.x = x;
+		this.y = y;
+		this.z = z;
+		this.dimension = world;
 		this.item = item;
 		this.buyAmount = buyAmount;
 		this.sellAmount = sellAmount;
@@ -100,7 +127,7 @@ public class Shop {
 				"sell_price", 		this.sellPrice.toString(),
 				"sell_currency", 	this.sellCurrency,
 				"server",			Civtrade.server,
-				"world", 			this.getWorld(),
+				"world", 			this.getWorld(this.dimension),
 				"location_x", 		this.x.toString(),
 				"location_y", 		this.y.toString(),
 				"location_z", 		this.z.toString()};
@@ -116,9 +143,9 @@ public class Shop {
 		return paramString;
 	}
 
-	private String getWorld() {
+	private static String getWorld(int dim) {
 		String dimension;
-		switch(this.dimension) {
+		switch(dim) {
 		case -1:
 			dimension = "nether";
 			break;
@@ -132,5 +159,43 @@ public class Shop {
 			dimension = "";
 		}
 		return dimension;
+	}
+	
+	private static int getDimension(String world) {
+ 		if (world.equals("overworld")) {
+ 			return 0;
+ 		} else if (world.equals("nether")) {
+ 			return -1;
+ 		} else {
+ 			return 1;
+ 		}
+	}
+	
+	public String toString() {
+		return this.item +
+				" [" + this.x.toString()
+				+ ", " + this.y.toString()
+				+ ", " + this.z.toString()
+				+"] " + this.buyAmount.toString()
+				+ " for " + this.buyPrice.toString()
+				+ this.buyCurrency.toString()
+				+ " / " + this.sellAmount.toString()
+				+ " for " + this.sellPrice.toString()
+				+ this.sellCurrency.toString();
+	}
+
+	public double distanceFrom(EntityClientPlayerMP thePlayer) {
+		double dX = thePlayer.posX - this.x;
+		double dY = thePlayer.posY - this.y;
+		double dZ = thePlayer.posZ - this.z;
+		return Math.sqrt(dX*dX + dY*dY + dZ*dZ);
+	}
+
+	public boolean isBuying() {
+		return this.buyAmount > 0;
+	}
+	
+	public boolean isSelling() {
+		return this.sellAmount > 0;
 	}
 }

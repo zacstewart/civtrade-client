@@ -3,7 +3,7 @@ package com.zacstewart.civtrade;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ShopParser {
+public class ShopSignParser {
 	final Pattern SHOP_ITEM_PATTERN = Pattern.compile("^\\[(.+)\\]$");
 	final Pattern SHOP_BUY_PATTERN = Pattern.compile("^Buy (\\d+) for (\\d+)([a-z])$");
 	final Pattern SHOP_SELL_PATTERN = Pattern.compile("^Sell (\\d+) for (\\d+)([a-z])$");
@@ -19,17 +19,17 @@ public class ShopParser {
 	String sellCurrency = "";
 	String seller = "";
 
-	public ShopParser(String signText[]) {
+	public ShopSignParser(String signText[]) {
 		this.signText = signText;
 	}
 
-	public static ShopParser parse(String signText[]) {
-		ShopParser parser = new ShopParser(signText);
+	public static ShopSignParser parse(String signText[]) {
+		ShopSignParser parser = new ShopSignParser(signText);
 		parser.parse();
 		return parser;
 	}
 
-	public ShopParser parse() {
+	public ShopSignParser parse() {
 		Matcher itemMatcher = SHOP_ITEM_PATTERN.matcher(this.signText[0]);
 		if (itemMatcher.find()) {
 			this.item = itemMatcher.group(1);

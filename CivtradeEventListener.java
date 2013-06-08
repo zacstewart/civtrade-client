@@ -16,20 +16,11 @@ import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.World;
 import net.minecraft.tileentity.TileEntitySign;
-import net.minecraftforge.event.CommandEvent;
 import net.minecraftforge.event.ForgeSubscribe;
-import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 
 public class CivtradeEventListener {
-
-
-	@ForgeSubscribe
-	public void chatReceived(ClientChatReceivedEvent event) {
-		System.out.println(event.message);
-	}
-
 	@ForgeSubscribe
 	public void playerInteracted(PlayerInteractEvent event) {
 		if (!Civtrade.multiplayer) { return; }
@@ -38,15 +29,13 @@ public class CivtradeEventListener {
 		int y = event.y;
 		int z = event.z;
 		World world = event.entityPlayer.worldObj;
-		int dimension = world.getWorldInfo().getDimension();
 		int blockId = world.getBlockId(x, y, z);
-		System.out.println("Server:");
-		System.out.println(Civtrade.server);
 
 		if (blockId == Block.signPost.blockID || blockId == Block.signWall.blockID) {
+			int dimension = world.getWorldInfo().getDimension();
 			String signText[] = ((TileEntitySign) world.getBlockTileEntity(x, y, z)).signText;
 
-			ShopParser parser = ShopParser.parse(signText);
+			ShopSignParser parser = ShopSignParser.parse(signText);
 
 			if (parser.isShop()) {
 				Shop shop = new Shop(

@@ -24,21 +24,24 @@ Otherwise, you probably know the drill:
 
 # Usage
 
+## Listing Shops
 Listing a new shop is easy. Just right-click on the shop's sign, just like
 you're making a purchase. Having the currency in hand is not required.
+
+![A PhysicalShop selling coal](http://f.cl.ly/items/1J2i110f2c3m1w3u3m2e/2013-06-05_10.38.17.png)
 
 None of your personal information, in-game username or anything else is
 collected.  Just the x, y, z of the shop and the information the sign shows.
 
-## For example
+## Searching Shops
+Hit 'I' and enter you query (or no query if you just want to list all shops).
+The >= 101 nearest shops will be listed in order of distance from you.
 
-![A PhysicalShop selling coal](http://f.cl.ly/items/1J2i110f2c3m1w3u3m2e/2013-06-05_10.38.17.png)
-
-Right-clicking this sign will produce one of [these listings][3].
+Again, none of you personal data, username, or anything else is listed. It uses
+your coords to find the closest shops, but does not collect anything identifying.
 
 # Future Features
 
-* In game "shops nearby" searching.
 * Shop inventory information being collected
 
 [1]: http://www.minecraftforum.net/topic/939149-launcher-magic-launcher-114-mods-options-profiles-news/

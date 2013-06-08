@@ -29,7 +29,6 @@ public class CivtradeConnectionHandler implements IConnectionHandler {
 	@Override
 	public void connectionOpened(NetHandler netClientHandler, String server,
 			int port, INetworkManager manager) {
-		System.out.println("Connection opened: " + server);
 		Side side = FMLCommonHandler.instance().getEffectiveSide();
 		if (side == Side.CLIENT) {
 			Civtrade.server = server + ':' + port;
