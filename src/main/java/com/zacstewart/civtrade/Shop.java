@@ -5,6 +5,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -102,6 +103,6 @@ public class Shop {
 			return;
 		}
 		HttpEntity entity = response.getEntity();
-		System.out.println("Result: " + response);
+		Civtrade.logger.log(Level.INFO, "Shop indexing response: " + response);
 	}
 }

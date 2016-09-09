@@ -1,5 +1,7 @@
 package com.zacstewart.civtrade;
 
+import java.util.logging.Logger;
+
 import net.minecraft.block.Block;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraft.util.math.BlockPos;
@@ -20,6 +22,7 @@ public class Civtrade
     public static final String NAME = "Civtrade";
     public static final String MODID = "civtrade";
     public static final String VERSION = "1.0";
+    public static Logger logger = Logger.getLogger("Civtrade");
 	private static final boolean devEnv = (Boolean)Launch.blackboard.get("fml.deobfuscatedEnvironment");
 	private final ItemExchangeParser parser = new ItemExchangeParser();
 	private static String currentServerAddress;
