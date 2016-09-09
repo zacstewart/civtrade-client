@@ -53,7 +53,7 @@ public class ItemExchangeParser {
 		}
 	}
 	
-	public void newItemExchange(String serverAddress, String worldId, BlockPos location) {
+	public void newShop(String serverAddress, String worldId, BlockPos location) {
 		shop = Optional.of(new Shop(serverAddress, worldId, location));
 	}
 }

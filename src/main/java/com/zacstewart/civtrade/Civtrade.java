@@ -46,7 +46,7 @@ public class Civtrade
 		if (block == Block.getBlockFromName("chest") ||
 				block == Block.getBlockFromName("trapped_chest") ||
 				block == Block.getBlockFromName("dispenser")) {
-			parser.newItemExchange(currentServerAddress, currentWorldID, location);
+			parser.newShop(currentServerAddress, currentWorldID, location);
 		}
 	}
 	
