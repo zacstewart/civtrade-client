@@ -1,0 +1,16 @@
+[
+{
+  "modid": "civtrade",
+  "name": "Civtrade",
+  "description": "A client mod for using Civtrade",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "https://github.com/zacstewart/civtrade-client",
+  "updateUrl": "",
+  "authorList": ["Zac Stewart"],
+  "credits": "Thanks to the Civcraft team for everything.",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": ["WaffleCore"]
+}
+]
