@@ -57,7 +57,6 @@ public class Civtrade
 	
     @SubscribeEvent
     public void worldInfoReceived(WorldInfoEvent event){
-    	System.out.println("Civtrade WorldInfoEvent - " + event.worldID + "@" + event.dirtyServerAddress);
     	currentServerAddress = event.cleanServerAddress;
     	currentWorldID = event.worldID;
     }
