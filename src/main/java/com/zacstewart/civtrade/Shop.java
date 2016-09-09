@@ -18,7 +18,6 @@ import org.apache.http.message.BasicNameValuePair;
 import net.minecraft.util.math.BlockPos;
 
 public class Shop {
-
 	private String serverAddress;
 	private String worldID;
 	private BlockPos location;
@@ -59,7 +58,7 @@ public class Shop {
 	}
 	
 	void save() {
-		new Thread(new Runnable () {
+		new Thread(new Runnable() {
 			public void run () {
 				writeToServer();
 			}
