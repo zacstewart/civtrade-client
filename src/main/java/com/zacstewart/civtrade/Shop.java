@@ -16,12 +16,13 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.util.math.BlockPos;
 
 public class Shop {
 	private String serverAddress;
 	private String worldID;
-	private BlockPos location;
+	BlockPos location;
 
 	private Optional<Integer> which;
 	private Optional<Integer> total;
@@ -33,6 +34,16 @@ public class Shop {
 	private Optional<Integer> outputAmount;
 	
 	private Optional<Integer> exchangesAvailable;
+	
+
+	Shop(String worldID, BlockPos location,
+			int inputAmount, String inputItemName,
+			int outputAmount, String outputItemName) {
+		this("", worldID, location);
+		setInput(inputAmount, inputItemName);
+		setOutput(outputAmount, outputItemName);
+	}
+
 	Shop(String serverAddress, String worldID, BlockPos location) {
 		this.serverAddress = serverAddress;
 		this.worldID = worldID;
@@ -104,5 +115,13 @@ public class Shop {
 		}
 		HttpEntity entity = response.getEntity();
 		Civtrade.logger.log(Level.INFO, "Shop indexing response: " + response);
+	}
+
+	String inputDescription() {
+		return Integer.toString(inputAmount.get()) + " " + inputItemName.get();
+	}
+	
+	String outputDescription() {
+		return Integer.toString(outputAmount.get()) + " " + outputItemName.get();
 	}
 }
