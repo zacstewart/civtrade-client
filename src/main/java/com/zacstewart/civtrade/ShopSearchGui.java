@@ -20,20 +20,32 @@ public class ShopSearchGui extends GuiScreen {
 	private static final int BUTTON_COPY_COORDS = 1;
 	
 	private GuiTextField queryField;
-	private String query = "";
+	private String query;
 	private ArrayList<Shop> shops = new ArrayList<Shop>();
 	private ShopListGui shopListGui;
-	private int selectedShopIndex = 0;
+	private int selectedShopIndex;
+	private boolean isFirstInit;
+	
+	ShopSearchGui() {
+		super();
+		query = "";
+		selectedShopIndex = 0;
+		isFirstInit = true;
+	}
 	
 	@Override
 	public void initGui() {
 		queryField = new GuiTextField(0, fontRendererObj, 40, 60, this.width - 160, 15);
 		queryField.setFocused(true);
-		queryField.setText("");
+		queryField.setText(query);
 		buttonList.clear();
 		buttonList.add(new GuiButton(BUTTON_SEARCH, width - 100, 58, 60, 18, "Search"));
 		buttonList.add(new GuiButton(BUTTON_COPY_COORDS, 40, height - 25, 100, 18, "Copy Coordinates"));
 		shopListGui = new ShopListGui(this, shops);
+		if (isFirstInit) {
+			performSearch();
+			isFirstInit = false;
+		}
 	}
 	
 	@Override
