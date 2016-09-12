@@ -4,16 +4,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
-import argo.jdom.JdomParser;
-import argo.jdom.JsonRootNode;
-import argo.saj.InvalidSyntaxException;
+import com.google.gson.JsonObject;
 
 public class ShopSearch {
-	private static final JdomParser JDOM_PARSER = new JdomParser();
 	private final String CIVTRADE_SHOPS_URL;
 	private Integer x, y, z;
 	private String query;
@@ -32,7 +28,7 @@ public class ShopSearch {
 	}
 
 	public void execute() {
-		JsonRootNode json = null;
+		JsonObject json = null;
 		try {
 			json = this.queryServer();
 		} catch (IOException e) {
@@ -56,7 +52,7 @@ public class ShopSearch {
 		delegate.selectShopAtIndex(0);
 	}
 	
-	private JsonRootNode queryServer() throws IOException {
+	private JsonObject queryServer() throws IOException {
 		HttpURLConnection conn = (HttpURLConnection) new URL(CIVTRADE_SHOPS_URL + "?" + this.requestParameters()).openConnection();
 		conn.setRequestMethod("GET");
 		conn.setDoOutput(true);
@@ -74,9 +70,9 @@ public class ShopSearch {
 		}
 
 		reader.close();
-		JsonRootNode json = null;
+		JsonObject json = null;
 		try {
-			json = JDOM_PARSER.parse(body);
+			json = JsonObject(body);
 		} catch (InvalidSyntaxException e) {
 			e.printStackTrace();
 		}

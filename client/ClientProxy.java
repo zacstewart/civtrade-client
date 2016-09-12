@@ -22,7 +22,7 @@ public class ClientProxy extends CommonProxy {
 	public void init (Civtrade civtrade) {
 		NetworkRegistry.instance().registerConnectionHandler(new CivtradeConnectionHandler());
 		MinecraftForge.EVENT_BUS.register(new CivtradeEventListener());
-		KeyBindingRegistry.registerKeyBinding(new CivtradeKeyHandler(Minecraft.getMinecraft()));
+		KeyBindingRegistry.registerKeyBinding(new Civtrade.CivtradeKeyHandler(Minecraft.getMinecraft()));
 	}
 
 }
