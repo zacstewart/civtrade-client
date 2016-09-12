@@ -1,7 +1,11 @@
 package com.zacstewart.civtrade;
 
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.logging.Level;
 
 import org.lwjgl.input.Keyboard;
@@ -13,6 +17,8 @@ import net.minecraft.client.gui.GuiTextField;
 
 public class ShopSearchGui extends GuiScreen {
 	private static final int BUTTON_SEARCH = 0;
+	private static final int BUTTON_COPY_COORDS = 1;
+	
 	private GuiTextField queryField;
 	private String query = "";
 	private ArrayList<Shop> shops = new ArrayList<Shop>();
@@ -25,7 +31,8 @@ public class ShopSearchGui extends GuiScreen {
 		queryField.setFocused(true);
 		queryField.setText("");
 		buttonList.clear();
-		buttonList.add(new GuiButton(BUTTON_SEARCH, this.width - 100, 58, 60, 18, "Search"));
+		buttonList.add(new GuiButton(BUTTON_SEARCH, width - 100, 58, 60, 18, "Search"));
+		buttonList.add(new GuiButton(BUTTON_COPY_COORDS, 40, height - 25, 100, 18, "Copy Coordinates"));
 		shopListGui = new ShopListGui(this, shops);
 	}
 	
@@ -58,8 +65,14 @@ public class ShopSearchGui extends GuiScreen {
 	
 	@Override
 	protected void actionPerformed(GuiButton button) {
-		if (button.id == BUTTON_SEARCH) {
-			performSearch();
+		switch(button.id) {
+			case BUTTON_SEARCH:
+				performSearch();
+				break;
+			case BUTTON_COPY_COORDS:
+				copySelectedShopCoords();
+			default:
+				break;
 		}
 	}
 	
@@ -68,6 +81,17 @@ public class ShopSearchGui extends GuiScreen {
 		this.shops.clear();
 		for (Shop shop : shops) {
 			this.shops.add(shop);
+		}
+	}
+	
+	private void copySelectedShopCoords() {
+		Optional<Shop> maybeShop = selectedShop();
+		if (maybeShop.isPresent()) {
+			Shop shop = maybeShop.get();
+			String location = String.format("%d, %d, %d", shop.location.getX(), shop.location.getY(), shop.location.getZ());
+			StringSelection selection = new StringSelection(location);
+			Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+			clipboard.setContents(selection, selection);
 		}
 	}
 	
@@ -91,11 +115,19 @@ public class ShopSearchGui extends GuiScreen {
 		return this.fontRendererObj;
 	}
 
-	public void selectShop(int index) {
+	void selectShop(int index) {
 		selectedShopIndex = index;
 	}
 	
-	public boolean shopIsSelected(int index) {
+	Optional<Shop> selectedShop() {
+		if (selectedShopIndex < shops.size()) {
+			return Optional.of(shops.get(selectedShopIndex));
+		} else {
+			return Optional.empty();
+		}
+	}
+	
+	boolean shopIsSelected(int index) {
 		return selectedShopIndex == index;
 	}
 }

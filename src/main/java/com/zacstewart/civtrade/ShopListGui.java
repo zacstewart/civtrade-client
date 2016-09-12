@@ -14,8 +14,8 @@ public class ShopListGui extends GuiScrollingList {
 	private static final int ENTRY_HEIGHT = 30;
 
 	public ShopListGui(ShopSearchGui parent, ArrayList<Shop> shops) {
-		super(parent.mc, parent.width - 80, parent.height - 100,
-				80, parent.height - 20, 40, ENTRY_HEIGHT, parent.width, parent.height);
+		super(parent.mc, parent.width - 80, parent.height - 115,
+				80, parent.height - 35, 40, ENTRY_HEIGHT, parent.width, parent.height);
 		this.parent = parent;
 		this.shops = shops;
 	}
